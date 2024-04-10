@@ -2,7 +2,7 @@ class Box:
     def __init__(self, value):
         self.value = value
         self.next_box = None
-        self.previous = None
+        self.prev_box = None
 
 
 class LinkedList:
@@ -15,23 +15,20 @@ class LinkedList:
             self.append(i)
 
     def append(self, *elements):
-        '''
-        Вставить элемент в конец листа или в позицию __pos
-        '''
         __element = elements[0]
         if len(elements) == 1:
             __pos = None
         else:
             __pos = elements[1]
-        newbox = Box(__element)
+        new_box = Box(__element)
         solution_1 = self._start is None
         solution_2 = self._end is None
         if solution_1 or solution_2:
 
             if solution_1:
-                self._start = newbox
+                self._start = new_box
             if solution_2:
-                self._end = newbox
+                self._end = new_box
 
             self._size += 1
             return
@@ -40,12 +37,12 @@ class LinkedList:
 
         if __pos is None:
 
-            while (lastbox.next_box):
+            while lastbox.next_box:
                 lastbox = lastbox.next_box
-            lastbox.next_box = newbox
+            lastbox.next_box = new_box
         else:
             __boxIndex = 0
-            while (__boxIndex <= __pos) and (lastbox.next_box):
+            while (__boxIndex <= __pos) and lastbox.next_box:
                 if __boxIndex == __pos:
                     return lastbox.value
                 __boxIndex = __boxIndex + 1
@@ -59,13 +56,13 @@ class LinkedList:
             self._start = lastbox.next_box
             self._size -= 1
         else:
-            boxIndex = 0
-            while (boxIndex <= pos) and lastbox.next_box:
-                if boxIndex == pos:
+            box_index = 0
+            while (box_index <= pos) and lastbox.next_box:
+                if box_index == pos:
                     additional_box.next_box = lastbox.next_box
                     self._size -= 1
                     return
-                boxIndex += 1
+                box_index += 1
                 additional_box = lastbox
                 lastbox = lastbox.next_box
 
